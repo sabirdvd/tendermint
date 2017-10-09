@@ -465,7 +465,7 @@ func buildTMStateFromChain(config *cfg.Config, state *sm.State, chain []*types.B
 
 func makeBlockchainFromWAL(wal *WAL) ([]*types.Block, []*types.Commit, error) {
 	// Search for height marker
-	gr, found, err := wal.group.Search("#ENDHEIGHT: ", makeHeightSearchFunc(0))
+	gr, found, err := wal.SearchForEndHeight(0)
 	if err != nil {
 		return nil, nil, err
 	}
