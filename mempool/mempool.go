@@ -269,7 +269,9 @@ func (mem *Mempool) resCbRecheck(req *abci.Request, res *abci.Response) {
 			atomic.StoreInt32(&mem.rechecking, 0)
 			mem.logger.Info("Done rechecking txs")
 
-			mem.notifyTxsAvailable()
+			if mem.Size() > 0 {
+				mem.notifyTxsAvailable()
+			}
 		}
 	default:
 		// ignore other messages
